@@ -1,0 +1,36 @@
+import Card from "../../../shared/components/UIElements/Card/Card";
+import { Place } from "../../../user/interfaces/place";
+import PlaceItem from "./PlaceItem/PlaceItem";
+import "./PlaceList.css";
+
+const PlaceList = (props) => {
+  if (!props.items.length) {
+    return (
+      <div className=" place-list center">
+        <Card>
+          <h2>No places found</h2>
+          {/* TODO: replace with dynamic button component */}
+          <button>Share Place</button>
+        </Card>
+      </div>
+    );
+  }
+  return (
+    <ul className="place-list">
+      {props.items.map((place: Place) => (
+        <PlaceItem
+          key={place.id}
+          id={place.id}
+          title={place.title}
+          address={place.address}
+          description={place.description}
+          image={place.imageUrl}
+          coordinates={place.location}
+          creatorId={place.creator}
+        />
+      ))}
+    </ul>
+  );
+};
+
+export default PlaceList;
