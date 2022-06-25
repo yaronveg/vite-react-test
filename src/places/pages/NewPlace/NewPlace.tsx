@@ -9,7 +9,7 @@ const NewPlace = () => {
         element="input"
         type="text"
         label="Title"
-        validators={[VALIDATOR_REQUIRE()]}
+        validators={[]}
         errorText="Please enter a valid title"
       />
     </form>

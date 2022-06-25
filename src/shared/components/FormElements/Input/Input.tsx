@@ -1,28 +1,42 @@
 import { ChangeEventHandler, TextareaHTMLAttributes, useReducer } from "react";
+import { validation } from "../../../utils/validation";
 import "./Input.css";
 
+const inputReducer = (
+  state: {
+    value: string;
+    isValid: boolean;
+  },
+  action: {
+    type: string;
+    val: string;
+    validators: { type: string; val?: string | number }[];
+  }
+) => {
+  switch (action.type) {
+    case "CHANGE":
+      return {
+        ...state,
+        value: action.val,
+        isValid: validation(action.val, action.validators),
+      };
+    default:
+      return state;
+  }
+};
+
 const Input = (props) => {
-  const inputReducer = (
-    state: {
-      value: string;
-      isValid: boolean;
-    },
-    action: { type: string; val: string }
-  ) => {
-    switch (action.type) {
-      case "CHANGE":
-        return { ...state, value: action.val, isValid: true };
-      default:
-        return state;
-    }
-  };
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: "",
     isValid: false,
   });
 
   const changeHandler = (event) => {
-    dispatch({ type: "CHANGE", val: event.target.value });
+    dispatch({
+      type: "CHANGE",
+      val: event.target.value,
+      validators: props.validators,
+    });
   };
 
   const element =
