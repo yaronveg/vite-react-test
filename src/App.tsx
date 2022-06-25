@@ -5,7 +5,7 @@ import {
   Routes,
 } from "react-router-dom";
 import "./App.css";
-import NewPlace from "./places/pages/NewPlace";
+import NewPlace from "./places/pages/NewPlace/NewPlace";
 import UserPlaces from "./places/pages/UserPlaces";
 import MainNavigation from "./shared/components/Navigation/MainHeader/MainNavigation/MainNavigation";
 import Users from "./user/pages/Users";
