@@ -1,4 +1,9 @@
-import { ChangeEventHandler, TextareaHTMLAttributes, useReducer } from "react";
+import {
+  ChangeEventHandler,
+  TextareaHTMLAttributes,
+  useReducer,
+  useEffect,
+} from "react";
 import { validation } from "../../../utils/validation";
 import "./Input.css";
 
@@ -68,6 +73,12 @@ const Input = (props) => {
         value={inputState.value}
       />
     );
+
+  const { id, onInput } = props;
+  const { value, isValid } = inputState;
+  useEffect(() => {
+    onInput(id, value, isValid);
+  }, [id, onInput, value, isValid]);
 
   return (
     <div
