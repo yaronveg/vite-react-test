@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Button from "../../../shared/components/FormElements/Button/Button";
 import Input from "../../../shared/components/FormElements/Input/Input";
@@ -35,12 +36,21 @@ const MOCK_PLACES: Place[] = [
 ];
 
 const UpdatePlace = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
   const { placeId } = useParams();
+
+  const [formState, inputHandler, setFormData] = useForm(
+    {
+      title: "",
+      description: "",
+    },
+    false
+  );
 
   const currentPlace = MOCK_PLACES.find(
     (mockPlace) => mockPlace.id === placeId
   );
-
   if (!currentPlace) {
     return (
       <div className="center">
@@ -49,18 +59,26 @@ const UpdatePlace = () => {
     );
   }
 
-  const [formState, inputHandler] = useForm(
-    {
-      title: { value: currentPlace.title, isValid: true },
-      description: { value: currentPlace.description, isValid: true },
-    },
-    true
-  );
+  useEffect(() => {
+    setFormData(
+      {
+        title: { value: currentPlace.title, isValid: true },
+        description: { value: currentPlace.description, isValid: true },
+      },
+      true
+    );
+    setIsLoading(false);
+  }, [setFormData, currentPlace]);
 
   const submitUpdatePlaceHandler = (event) => {
     event.preventDefault();
     console.log("UpdatePlace: formState inputs:", formState.inputs); // TODO: send to backend
   };
+
+  // TODO: replace with better logic!!!
+  if (isLoading) {
+    return <h2>Loading...</h2>;
+  }
 
   return (
     <form className="place-form" onSubmit={submitUpdatePlaceHandler}>
