@@ -20,7 +20,7 @@ const Auth = () => {
     false
   );
   const [isLoginMode, setIsLoginMode] = useState(true);
-  const submitAuthHandler = (event) => {
+  const submitAuthHandler = (event: React.SyntheticEvent) => {
     event.preventDefault();
     console.log("Auth: formState inputs:", formState.inputs); // TODO: send this to backend
   };

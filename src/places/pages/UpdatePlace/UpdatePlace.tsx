@@ -75,7 +75,7 @@ const UpdatePlace = () => {
     setIsLoading(false);
   }, [setFormData, currentPlace]);
 
-  const submitUpdatePlaceHandler = (event) => {
+  const submitUpdatePlaceHandler = (event: React.SyntheticEvent) => {
     event.preventDefault();
     console.log("UpdatePlace: formState inputs:", formState.inputs); // TODO: send to backend
   };

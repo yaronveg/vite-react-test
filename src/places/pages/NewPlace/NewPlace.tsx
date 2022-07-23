@@ -18,7 +18,7 @@ const NewPlace = () => {
     false
   );
 
-  const submitPlaceHandler = (event) => {
+  const submitPlaceHandler = (event: React.SyntheticEvent) => {
     event.preventDefault();
     console.log("NewPlace: formState inputs:", formState.inputs); // TODO: send this to backend
   };
