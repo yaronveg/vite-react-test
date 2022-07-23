@@ -1,9 +1,4 @@
-import {
-  ChangeEventHandler,
-  TextareaHTMLAttributes,
-  useReducer,
-  useEffect,
-} from "react";
+import { useReducer, useEffect } from "react";
 import { validation } from "../../../utils/validation";
 import "./Input.css";
 
