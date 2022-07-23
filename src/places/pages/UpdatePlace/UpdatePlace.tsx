@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Button from "../../../shared/components/FormElements/Button/Button";
 import Input from "../../../shared/components/FormElements/Input/Input";
+import Card from "../../../shared/components/UIElements/Card/Card";
 import { useForm } from "../../../shared/hooks/form-hook";
 import {
   VALIDATOR_MINLENGTH,
@@ -24,7 +25,7 @@ const MOCK_PLACES: Place[] = [
   },
   {
     id: "p2",
-    title: "Masarik Square",
+    title: "Masa.  Square",
     address: "Sderot Masaryk, Tel Aviv-Yafo",
     description:
       "The duck's garden, near Rabin square. There's a coffee house.",
@@ -54,19 +55,23 @@ const UpdatePlace = () => {
   if (!currentPlace) {
     return (
       <div className="center">
-        <h2>Could not find place</h2>
+        <Card>
+          <h2>Could not find place</h2>
+        </Card>
       </div>
     );
   }
 
   useEffect(() => {
-    setFormData(
-      {
-        title: { value: currentPlace.title, isValid: true },
-        description: { value: currentPlace.description, isValid: true },
-      },
-      true
-    );
+    if (currentPlace) {
+      setFormData(
+        {
+          title: { value: currentPlace.title, isValid: true },
+          description: { value: currentPlace.description, isValid: true },
+        },
+        true
+      );
+    }
     setIsLoading(false);
   }, [setFormData, currentPlace]);
 

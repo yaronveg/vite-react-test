@@ -16,7 +16,7 @@ const MOCK_PLACES: Place[] = [
   },
   {
     id: "p2",
-    title: "Masarik Square",
+    title: "Masa. Square",
     address: "Sderot Masaryk, Tel Aviv-Yafo",
     description:
       "The duck's garden, near Rabin square. There's a coffee house.",

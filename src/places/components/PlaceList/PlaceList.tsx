@@ -1,3 +1,4 @@
+import Button from "../../../shared/components/FormElements/Button/Button";
 import Card from "../../../shared/components/UIElements/Card/Card";
 import { Place } from "../../../user/interfaces/place";
 import PlaceItem from "./PlaceItem/PlaceItem";
@@ -9,8 +10,7 @@ const PlaceList = (props) => {
       <div className=" place-list center">
         <Card>
           <h2>No places found</h2>
-          {/* TODO: replace with dynamic button component */}
-          <button>Share Place</button>
+          <Button to="/places/new">Share Place</Button>
         </Card>
       </div>
     );
