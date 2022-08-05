@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Button from "../../../shared/components/FormElements/Button/Button";
 import Input from "../../../shared/components/FormElements/Input/Input";
 import Card from "../../../shared/components/UIElements/Card/Card";
+import { AuthContext } from "../../../shared/context/auth-context";
 import { useForm } from "../../../shared/hooks/form-hook";
 import {
   VALIDATOR_EMAIL,
@@ -12,6 +13,8 @@ import {
 import "./Auth.css";
 
 const Auth = () => {
+  const auth = useContext(AuthContext);
+
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: { value: "", isValid: false },
@@ -23,10 +26,23 @@ const Auth = () => {
   const submitAuthHandler = (event: React.SyntheticEvent) => {
     event.preventDefault();
     console.log("Auth: formState inputs:", formState.inputs); // TODO: send this to backend
+    auth.login();
   };
   const switchModeHandler = () => {
+    if (!isLoginMode) {
+      setFormData(
+        { ...formState.inputs, name: undefined },
+        formState.inputs.email.isValid && formState.inputs.password.isValid
+      );
+    } else {
+      setFormData(
+        { ...formState.inputs, name: { value: "", isValid: false } },
+        false
+      );
+    }
     setIsLoginMode((prevMode) => !prevMode);
   };
+
   return (
     <Card className="authentication">
       <h2>Login Required</h2>
