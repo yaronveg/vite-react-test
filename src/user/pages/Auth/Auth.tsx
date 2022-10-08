@@ -26,17 +26,43 @@ const Auth = () => {
   const auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const [serverError, setServerError] = useState(false);
+  const [serverError, setServerError] = useState(null);
 
   const submitAuthHandler = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
     console.log("Auth: formState inputs:", formState.inputs);
+    setIsLoading(true);
 
     if (isLoginMode) {
+      try {
+        const res = await fetch("http://localhost:5000/api/users/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: formState.inputs.email.value,
+            password: formState.inputs.password.value,
+          }),
+        });
+
+        const resData = await res.json();
+
+        if (!res.ok) {
+          throw new Error(resData.message);
+        }
+        setIsLoading(false);
+        auth.login();
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false);
+        setServerError(
+          error?.message || "Something went wrong, please try again"
+        );
+      }
     } else {
       try {
-        setIsLoading(true);
         const res = await fetch("http://localhost:5000/api/users/signup", {
           method: "POST",
           headers: {
@@ -50,10 +76,10 @@ const Auth = () => {
         });
 
         const resData = await res.json();
-        if (!resData.ok) {
+
+        if (!res.ok) {
           throw new Error(resData.message);
         }
-        console.log(resData);
         setIsLoading(false);
         auth.login();
       } catch (error) {
