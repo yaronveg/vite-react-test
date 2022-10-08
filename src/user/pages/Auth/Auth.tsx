@@ -15,8 +15,6 @@ import "./Auth.css";
 import { AuthContext } from "../../../shared/context/auth-context";
 
 const Auth = () => {
-  const auth = useContext(AuthContext);
-
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: { value: "", isValid: false },
