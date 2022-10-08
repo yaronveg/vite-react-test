@@ -15,6 +15,8 @@ import "./Auth.css";
 import { AuthContext } from "../../../shared/context/auth-context";
 
 const Auth = () => {
+  const auth = useContext(AuthContext);
+
   const [formState, inputHandler, setFormData] = useForm(
     {
       email: { value: "", isValid: false },
@@ -62,8 +64,20 @@ const Auth = () => {
     }
   };
   const switchModeHandler = () => {
+    if (!isLoginMode) {
+      setFormData(
+        { ...formState.inputs, name: undefined },
+        formState.inputs.email.isValid && formState.inputs.password.isValid
+      );
+    } else {
+      setFormData(
+        { ...formState.inputs, name: { value: "", isValid: false } },
+        false
+      );
+    }
     setIsLoginMode((prevMode) => !prevMode);
   };
+
   return (
     <Card className="authentication">
       {isLoading && <LoadingSpinner asOverlay />}

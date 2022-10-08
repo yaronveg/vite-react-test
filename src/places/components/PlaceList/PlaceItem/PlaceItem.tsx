@@ -7,6 +7,7 @@ import { AuthContext } from "../../../../shared/context/auth-context";
 import "./PlaceItem.css";
 
 const PlaceItem = (props) => {
+  const auth = useContext(AuthContext);
   const [showMap, setShowMap] = useState(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const auth = useContext(AuthContext);
@@ -69,12 +70,12 @@ const PlaceItem = (props) => {
               VIEW ON MAP
             </Button>
             {auth.isLoggedIn && (
-              <>
-                <Button to={`/places/${props.id}`}>EDIT</Button>
-                <Button danger onClick={openConfirmDeleteHandler}>
-                  DELETE
-                </Button>
-              </>
+              <Button to={`/places/${props.id}`}>EDIT</Button>
+            )}
+            {auth.isLoggedIn && (
+              <Button danger onClick={openConfirmDeleteHandler}>
+                DELETE
+              </Button>
             )}
           </div>
         </Card>
