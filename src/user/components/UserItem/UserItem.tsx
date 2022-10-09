@@ -4,7 +4,17 @@ import Card from "../../../shared/components/UIElements/Card/Card";
 import { User } from "../../interfaces/user";
 import "./UserItem.css";
 
-const UsersItem = ({ id, image, name, placeCount }: User) => {
+const UsersItem = ({
+  id,
+  image,
+  name,
+  placeCount,
+}: {
+  id: string;
+  image: string;
+  name: string;
+  placeCount: number;
+}) => {
   return (
     <li className="user-item">
       <Card className="user-item__content">
