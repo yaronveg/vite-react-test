@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import Button from "../../../shared/components/FormElements/Button/Button";
 import Input from "../../../shared/components/FormElements/Input/Input";
 import Card from "../../../shared/components/UIElements/Card/Card";
-import { useForm } from "../../../shared/hooks/form-hook";
+import { useForm } from "../../../shared/hooks";
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,

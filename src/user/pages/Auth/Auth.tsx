@@ -7,7 +7,7 @@ import {
   ErrorModal,
 } from "../../../shared/components";
 import { AuthContext } from "../../../shared/context/auth-context";
-import { useForm } from "../../../shared/hooks/form-hook";
+import { useForm, useHttpClient } from "../../../shared/hooks";
 import {
   VALIDATOR_EMAIL,
   VALIDATOR_MINLENGTH,
