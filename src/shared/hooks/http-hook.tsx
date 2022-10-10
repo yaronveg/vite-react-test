@@ -9,7 +9,12 @@ export const useHttpClient = () => {
   const activeHttpRequest = useRef(abortControllres);
 
   const sendRequest = useCallback(
-    async (url: string, method = "GET", body = null, headers = {}) => {
+    async (
+      url: string,
+      method = "GET",
+      body: null | string = null,
+      headers = {}
+    ) => {
       setIsLoading(true);
 
       const httpAbortCtrl = new AbortController();
@@ -22,14 +27,21 @@ export const useHttpClient = () => {
           signal: httpAbortCtrl.signal,
         });
         const resData = await res.json();
+        // removing abort controller once the request is complete
+        activeHttpRequest.current = activeHttpRequest.current.filter(
+          (reqCtrl) => reqCtrl !== httpAbortCtrl
+        );
+
         if (!res.ok) {
           throw new Error(resData.message);
         }
+        setIsLoading(false);
         return resData;
       } catch (error) {
-        setServerError(error);
+        setServerError(typeof error === "string" ? error : error.message);
+        setIsLoading(false);
+        throw error;
       }
-      setIsLoading(false);
     },
     []
   );

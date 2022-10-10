@@ -25,70 +25,44 @@ const Auth = () => {
   );
   const auth = useContext(AuthContext);
   const [isLoginMode, setIsLoginMode] = useState(true);
-  const [isLoading, setIsLoading] = useState(false);
-  const [serverError, setServerError] = useState(null);
+  const { isLoading, serverError, sendRequest, clearError } = useHttpClient();
 
   const submitAuthHandler = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
     console.log("Auth: formState inputs:", formState.inputs);
-    setIsLoading(true);
 
     if (isLoginMode) {
       try {
-        const res = await fetch("http://localhost:5000/api/users/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
+        await sendRequest(
+          "http://localhost:5000/api/users/login",
+          "POST",
+          JSON.stringify({
             email: formState.inputs.email.value,
             password: formState.inputs.password.value,
           }),
-        });
-
-        const resData = await res.json();
-
-        if (!res.ok) {
-          throw new Error(resData.message);
-        }
-        setIsLoading(false);
-        auth.login();
-      } catch (error) {
-        console.log(error);
-        setIsLoading(false);
-        setServerError(
-          error?.message || "Something went wrong, please try again"
+          {
+            "Content-Type": "application/json",
+          }
         );
-      }
+        auth.login();
+      } catch (error) {}
     } else {
       try {
-        const res = await fetch("http://localhost:5000/api/users/signup", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
+        await sendRequest(
+          "http://localhost:5000/api/users/signup",
+          "POST",
+          JSON.stringify({
             name: formState.inputs.name.value,
             email: formState.inputs.email.value,
             password: formState.inputs.password.value,
           }),
-        });
-
-        const resData = await res.json();
-
-        if (!res.ok) {
-          throw new Error(resData.message);
-        }
-        setIsLoading(false);
-        auth.login();
-      } catch (error) {
-        console.log(error);
-        setIsLoading(false);
-        setServerError(
-          error?.message || "Something went wrong, please try again"
+          {
+            "Content-Type": "application/json",
+          }
         );
-      }
+        auth.login();
+      } catch (error) {}
     }
   };
   const switchModeHandler = () => {
@@ -105,14 +79,9 @@ const Auth = () => {
     }
     setIsLoginMode((prevMode) => !prevMode);
   };
-
-  const errorHandler = () => {
-    setServerError(null);
-  };
-
   return (
     <>
-      <ErrorModal error={serverError} onClear={errorHandler} />
+      <ErrorModal error={serverError} onClear={clearError} />
       <Card className="authentication">
         {isLoading && <LoadingSpinner asOverlay />}
         <h2>Login Required</h2>
