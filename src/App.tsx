@@ -19,14 +19,22 @@ import Users from "./user/pages/Users";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState<string | null>(null);
 
-  const login = useCallback(() => {
+  const login = useCallback((uid: string) => {
     setIsLoggedIn(true);
+    setUserId(uid);
   }, []);
   const logout = useCallback(() => {
     setIsLoggedIn(false);
+    setUserId(null);
   }, []);
-  const authProviderValue: AuthContextInterface = { isLoggedIn, login, logout };
+  const authProviderValue: AuthContextInterface = {
+    isLoggedIn,
+    userId,
+    login,
+    logout,
+  };
 
   let routes;
   if (isLoggedIn) {
