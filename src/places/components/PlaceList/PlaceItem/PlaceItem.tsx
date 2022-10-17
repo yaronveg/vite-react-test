@@ -1,6 +1,15 @@
 import { useContext, useState } from "react";
-import { Button, Card, Map, Modal } from "../../../../shared/components";
+import { useNavigate } from "react-router";
+import {
+  Button,
+  Card,
+  Map,
+  Modal,
+  ErrorModal,
+  LoadingSpinner,
+} from "../../../../shared/components";
 import { AuthContext } from "../../../../shared/context/auth-context";
+import { useHttpClient } from "../../../../shared/hooks";
 import { IdType, Coordinates } from "../../../../user/interfaces";
 import "./PlaceItem.css";
 
@@ -12,10 +21,13 @@ const PlaceItem = (props: {
   coordinates: Coordinates;
   image: string;
   creator: IdType;
+  onDelete: (deletedPlaceId: IdType) => void;
 }) => {
+  const { serverError, isLoading, clearError, sendRequest } = useHttpClient();
   const [showMap, setShowMap] = useState(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const auth = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const openMapHandler = () => setShowMap(true);
   const closeMapHandler = () => setShowMap(false);
@@ -23,13 +35,20 @@ const PlaceItem = (props: {
   const cancelDeleteHandler = () => {
     setShowConfirmDelete(false);
   };
-  const confirmDeleteHandler = () => {
+  const confirmDeleteHandler = async () => {
     setShowConfirmDelete(false);
-    console.log("deleting...");
+    try {
+      await sendRequest(
+        `http://localhost:5000/api/places/${props.id}`,
+        "DELETE"
+      );
+      props.onDelete(props.id);
+    } catch (error) {}
   };
 
   return (
     <>
+      <ErrorModal error={serverError} onClear={clearError} />
       <Modal
         show={showMap}
         onCancel={closeMapHandler}
@@ -62,6 +81,7 @@ const PlaceItem = (props: {
       </Modal>
       <li className="place-item">
         <Card className="place-item__content">
+          {isLoading && <LoadingSpinner asOverlay />}
           <div className="place-item__image">
             <img src={props.image} alt={props.title} />
           </div>

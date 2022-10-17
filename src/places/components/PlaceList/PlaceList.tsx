@@ -1,10 +1,12 @@
-import Button from "../../../shared/components/FormElements/Button/Button";
-import Card from "../../../shared/components/UIElements/Card/Card";
-import { Place } from "../../../user/interfaces/place";
+import { Button, Card } from "../../../shared/components";
+import { IdType, Place } from "../../../user/interfaces";
 import PlaceItem from "./PlaceItem/PlaceItem";
 import "./PlaceList.css";
 
-const PlaceList = (props: { items: Place[] }) => {
+const PlaceList = (props: {
+  items: Place[];
+  onDeletePlace: (deletedPlaceId: IdType) => void;
+}) => {
   if (!props.items.length) {
     return (
       <div className=" place-list center">
@@ -27,6 +29,7 @@ const PlaceList = (props: { items: Place[] }) => {
           image={place.imageUrl}
           coordinates={place.location}
           creator={place.creator}
+          onDelete={props.onDeletePlace}
         />
       ))}
     </ul>
