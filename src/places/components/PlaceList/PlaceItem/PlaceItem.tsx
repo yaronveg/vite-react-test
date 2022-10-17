@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { useNavigate } from "react-router";
 import {
   Button,
   Card,
@@ -27,7 +26,6 @@ const PlaceItem = (props: {
   const [showMap, setShowMap] = useState(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const auth = useContext(AuthContext);
-  const navigate = useNavigate();
 
   const openMapHandler = () => setShowMap(true);
   const closeMapHandler = () => setShowMap(false);
@@ -94,10 +92,10 @@ const PlaceItem = (props: {
             <Button inverse onClick={openMapHandler}>
               VIEW ON MAP
             </Button>
-            {auth.isLoggedIn && (
+            {auth.isLoggedIn && auth.userId === props.creator && (
               <Button to={`/places/${props.id}`}>EDIT</Button>
             )}
-            {auth.isLoggedIn && (
+            {auth.isLoggedIn && auth.userId === props.creator && (
               <Button danger onClick={openConfirmDeleteHandler}>
                 DELETE
               </Button>
