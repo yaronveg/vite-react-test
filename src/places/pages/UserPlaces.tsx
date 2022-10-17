@@ -1,36 +1,38 @@
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Place } from "../../user/interfaces/place";
+import { AuthContext } from "../../shared/context/auth-context";
+import { useHttpClient } from "../../shared/hooks";
+import { ErrorModal, LoadingSpinner } from "../../shared/components";
 import PlaceList from "../components/PlaceList/PlaceList";
 
-const MOCK_PLACES: Place[] = [
-  {
-    id: "p1",
-    title: "Masarik Square",
-    address: "Sderot Masaryk, Tel Aviv-Yafo",
-    description:
-      "The duck's garden, near Rabin square. There's a coffee house.",
-    imageUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Masaryk_square.jpg/1280px-Masaryk_square.jpg",
-    location: { lat: 32.0792889, lng: 34.7746337 },
-    creator: "u1",
-  },
-  {
-    id: "p2",
-    title: "Masa. Square",
-    address: "Sderot Masaryk, Tel Aviv-Yafo",
-    description:
-      "The duck's garden, near Rabin square. There's a coffee house.",
-    imageUrl:
-      "https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/Masaryk_square.jpg/1280px-Masaryk_square.jpg",
-    location: { lat: 32.0792889, lng: 34.7746337 },
-    creator: "u2",
-  },
-];
-
 const UserPlaces = () => {
+  const { serverError, isLoading, clearError, sendRequest } = useHttpClient();
+  const [userPlaces, setUserPlaces] = useState([]);
   const userId = useParams().userId;
-  const loadedPlaces = MOCK_PLACES.filter((place) => place.creator === userId);
-  return <PlaceList items={loadedPlaces} />;
+
+  useEffect(() => {
+    const fetchPlaces = async () => {
+      try {
+        const resData = await sendRequest(
+          `http://localhost:5000/api/places/user/${userId}`
+        );
+        setUserPlaces(resData.places);
+      } catch (error) {}
+    };
+    fetchPlaces();
+  }, [sendRequest, userId]);
+
+  return (
+    <>
+      <ErrorModal error={serverError} onClear={clearError} />
+      {isLoading && (
+        <div className="center">
+          <LoadingSpinner asOverlay />
+        </div>
+      )}
+      {!isLoading && userPlaces && <PlaceList items={userPlaces} />}
+    </>
+  );
 };
 
 export default UserPlaces;
