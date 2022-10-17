@@ -1,12 +1,18 @@
 import { useContext, useState } from "react";
-import Button from "../../../../shared/components/FormElements/Button/Button";
-import Card from "../../../../shared/components/UIElements/Card/Card";
-import Map from "../../../../shared/components/UIElements/Map/Map";
-import Modal from "../../../../shared/components/UIElements/Modal/Modal";
+import { Button, Card, Map, Modal } from "../../../../shared/components";
 import { AuthContext } from "../../../../shared/context/auth-context";
+import { IdType, Coordinates } from "../../../../user/interfaces";
 import "./PlaceItem.css";
 
-const PlaceItem = (props) => {
+const PlaceItem = (props: {
+  id: IdType;
+  title: string;
+  description: string;
+  address: string;
+  coordinates: Coordinates;
+  image: string;
+  creator: IdType;
+}) => {
   const [showMap, setShowMap] = useState(false);
   const [showConfirmDelete, setShowConfirmDelete] = useState(false);
   const auth = useContext(AuthContext);

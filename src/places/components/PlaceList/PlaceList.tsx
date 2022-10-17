@@ -4,7 +4,7 @@ import { Place } from "../../../user/interfaces/place";
 import PlaceItem from "./PlaceItem/PlaceItem";
 import "./PlaceList.css";
 
-const PlaceList = (props) => {
+const PlaceList = (props: { items: Place[] }) => {
   if (!props.items.length) {
     return (
       <div className=" place-list center">
@@ -26,7 +26,7 @@ const PlaceList = (props) => {
           description={place.description}
           image={place.imageUrl}
           coordinates={place.location}
-          creatorId={place.creator}
+          creator={place.creator}
         />
       ))}
     </ul>

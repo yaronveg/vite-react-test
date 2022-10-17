@@ -4,10 +4,11 @@ import { AuthContext } from "../../shared/context/auth-context";
 import { useHttpClient } from "../../shared/hooks";
 import { ErrorModal, LoadingSpinner } from "../../shared/components";
 import PlaceList from "../components/PlaceList/PlaceList";
+import { Place } from "../../user/interfaces";
 
 const UserPlaces = () => {
   const { serverError, isLoading, clearError, sendRequest } = useHttpClient();
-  const [userPlaces, setUserPlaces] = useState([]);
+  const [userPlaces, setUserPlaces] = useState<Place[]>([]);
   const userId = useParams().userId;
 
   useEffect(() => {
