@@ -5,6 +5,7 @@ import {
   Input,
   LoadingSpinner,
   ErrorModal,
+  ImageUpload,
 } from "../../../shared/components";
 import { AuthContext } from "../../../shared/context/auth-context";
 import { useForm, useHttpClient } from "../../../shared/hooks";
@@ -68,12 +69,16 @@ const Auth = () => {
   const switchModeHandler = () => {
     if (!isLoginMode) {
       setFormData(
-        { ...formState.inputs, name: undefined },
+        { ...formState.inputs, name: undefined, image: undefined },
         formState.inputs.email.isValid && formState.inputs.password.isValid
       );
     } else {
       setFormData(
-        { ...formState.inputs, name: { value: "", isValid: false } },
+        {
+          ...formState.inputs,
+          name: { value: "", isValid: false },
+          image: { value: null, isValid: false },
+        },
         false
       );
     }
@@ -96,6 +101,14 @@ const Auth = () => {
               validators={[VALIDATOR_REQUIRE()]}
               errorText="Please enter your name."
               onInput={inputHandler}
+            />
+          )}
+          {!isLoginMode && (
+            <ImageUpload
+              id="image"
+              center
+              onInput={inputHandler}
+              errorText="What did you do?"
             />
           )}
           <Input
