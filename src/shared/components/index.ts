@@ -1,6 +1,7 @@
 // form elements
 export { default as Button } from "./FormElements/Button/Button";
 export { default as Input } from "./FormElements/Input/Input";
+export { default as ImageUpload } from "./FormElements/ImageUpload/ImageUpload";
 
 // navigation
 export { default as MainHeader } from "./Navigation/MainHeader/MainHeader";
