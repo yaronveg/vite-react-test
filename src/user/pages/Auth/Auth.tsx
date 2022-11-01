@@ -106,7 +106,7 @@ const Auth = () => {
               id="image"
               center
               onInput={inputHandler}
-              errorText="What did you do?"
+              errorText="Please provide an image."
             />
           )}
           <Input
