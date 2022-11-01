@@ -12,7 +12,7 @@ export const useHttpClient = () => {
     async (
       url: string,
       method = "GET",
-      body: null | string = null,
+      body: null | string | FormData = null,
       headers = {}
     ) => {
       setIsLoading(true);
