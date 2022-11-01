@@ -50,17 +50,15 @@ const Auth = () => {
       } catch (error) {}
     } else {
       try {
+        const formData = new FormData(); // FormData is a broswer api
+        formData.append("name", formState.inputs.name.value);
+        formData.append("email", formState.inputs.email.value);
+        formData.append("password", formState.inputs.password.value);
+        formData.append("image", formState.inputs.image.value); // this "image" key matches the key in backend. multer's middleware is looking for "image" ( multer.single("image") )
         const resData = await sendRequest(
           "http://localhost:5000/api/users/signup",
           "POST",
-          JSON.stringify({
-            name: formState.inputs.name.value,
-            email: formState.inputs.email.value,
-            password: formState.inputs.password.value,
-          }),
-          {
-            "Content-Type": "application/json",
-          }
+          formData
         );
         auth.login(resData.user.id);
       } catch (error) {}
