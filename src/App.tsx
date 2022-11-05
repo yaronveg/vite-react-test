@@ -18,26 +18,27 @@ import Auth from "./user/pages/Auth/Auth";
 import Users from "./user/pages/Users";
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userId, setUserId] = useState<string | null>(null);
+  const [token, setToken] = useState<null | string>(null);
+  const [userId, setUserId] = useState<null | string>(null);
 
-  const login = useCallback((uid: string) => {
-    setIsLoggedIn(true);
+  const login = useCallback((uid: string, token: string) => {
+    setToken(token);
     setUserId(uid);
   }, []);
   const logout = useCallback(() => {
-    setIsLoggedIn(false);
+    setToken(null);
     setUserId(null);
   }, []);
   const authProviderValue: AuthContextInterface = {
-    isLoggedIn,
+    isLoggedIn: !!token,
+    token,
     userId,
     login,
     logout,
   };
 
   let routes;
-  if (isLoggedIn) {
+  if (token) {
     routes = (
       <>
         <Route path="/" element={<Users />} />
