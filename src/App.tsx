@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Navigate,
@@ -21,13 +21,27 @@ const App = () => {
   const [token, setToken] = useState<null | string>(null);
   const [userId, setUserId] = useState<null | string>(null);
 
-  const login = useCallback((uid: string, token: string) => {
-    setToken(token);
-    setUserId(uid);
-  }, []);
+  const login = useCallback(
+    (uid: string, token: string, expirationDate: Date) => {
+      setToken(token);
+      setUserId(uid);
+      const tokenExpirationDate =
+        expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60); // depends on the server side epiration to also be 1 hour.
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          userId: uid,
+          token,
+          expiration: tokenExpirationDate.toISOString(),
+        })
+      );
+    },
+    []
+  );
   const logout = useCallback(() => {
     setToken(null);
     setUserId(null);
+    localStorage.removeItem("userData");
   }, []);
   const authProviderValue: AuthContextInterface = {
     isLoggedIn: !!token,
@@ -36,6 +50,19 @@ const App = () => {
     login,
     logout,
   };
+
+  useEffect(() => {
+    const storedData = localStorage.getItem("userData");
+    if (storedData) {
+      const userData = JSON.parse(storedData);
+      if (
+        userData &&
+        userData.token &&
+        new Date(userData.expiration) > new Date()
+      )
+        login(userData.userId, userData.token, new Date(userData.expiration));
+    }
+  }, [login]);
 
   let routes;
   if (token) {
