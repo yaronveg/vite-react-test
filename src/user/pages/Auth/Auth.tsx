@@ -36,7 +36,7 @@ const Auth = () => {
     if (isLoginMode) {
       try {
         const resData = await sendRequest(
-          "http://localhost:5000/api/users/login",
+          import.meta.env.YV_DEV_SERVER_BASE_URL + "users/login",
           "POST",
           JSON.stringify({
             email: formState.inputs.email.value,
@@ -56,7 +56,7 @@ const Auth = () => {
         formData.append("password", formState.inputs.password.value);
         formData.append("image", formState.inputs.image.value); // this "image" key matches the key in backend. multer's middleware is looking for "image" ( multer.single("image") )
         const resData = await sendRequest(
-          "http://localhost:5000/api/users/signup",
+          import.meta.env.YV_DEV_SERVER_BASE_URL + "users/signup",
           "POST",
           formData
         );

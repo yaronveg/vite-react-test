@@ -13,7 +13,7 @@ const UserPlaces = () => {
   const fetchPlaces = useCallback(async () => {
     try {
       const resData = await sendRequest(
-        `http://localhost:5000/api/places/user/${userId}`
+        `${import.meta.env.YV_DEV_SERVER_BASE_URL}places/user/${userId}`
       );
       setUserPlaces(resData.places);
     } catch (error) {}

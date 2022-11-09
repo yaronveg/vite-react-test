@@ -40,7 +40,7 @@ const NewPlace = () => {
         formData.append("address", formState.inputs.address.value);
         formData.append("image", formState.inputs.image.value);
         await sendRequest(
-          "http://localhost:5000/api/places/",
+          import.meta.env.YV_DEV_SERVER_BASE_URL + "places/",
           "POST",
           formData,
           { authorization: `Bearer ${auth.token}` }

@@ -34,7 +34,7 @@ const UpdatePlace = () => {
     const fetchPlace = async () => {
       try {
         const resData = await sendRequest(
-          `http://localhost:5000/api/places/${placeId}`
+          `${import.meta.env.YV_DEV_SERVER_BASE_URL}places/${placeId}`
         );
         setCurrentPlace(resData.place);
         setFormData(
@@ -67,7 +67,7 @@ const UpdatePlace = () => {
     event.preventDefault();
     try {
       await sendRequest(
-        `http://localhost:5000/api/places/${placeId}`,
+        `${import.meta.env.YV_DEV_SERVER_BASE_URL}places/${placeId}`,
         "PATCH",
         JSON.stringify({
           title: formState.inputs.title.value,

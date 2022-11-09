@@ -10,7 +10,9 @@ const Users = () => {
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const resData = await sendRequest("http://localhost:5000/api/users");
+        const resData = await sendRequest(
+          import.meta.env.YV_DEV_SERVER_BASE_URL + "users"
+        );
         setUsers(resData.users);
       } catch (error) {}
     };
