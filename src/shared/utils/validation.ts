@@ -27,9 +27,9 @@ export const VALIDATOR_MAX = (val: number) => ({
 export const VALIDATOR_EMAIL = () => ({ type: VALIDATOR_TYPE_EMAIL });
 export const VALIDATOR_FILE = () => ({ type: VALIDATOR_TYPE_FILE });
 
-type ValidatorConfig = (val?: string | number) => {
+export type ValidatorConfig = {
   type: string;
-  val?: string | number;
+  val?: number;
 };
 
 export const validation = (
