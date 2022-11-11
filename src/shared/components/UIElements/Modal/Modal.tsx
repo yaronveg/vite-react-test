@@ -1,9 +1,20 @@
+import { ReactChild } from "react";
 import { createPortal } from "react-dom";
 import { CSSTransition } from "react-transition-group";
 import Backdrop from "../Backdrop/Backdrop";
 import "./Modal.css";
 
-const ModalOverlay = (props) => {
+const ModalOverlay = (props: {
+  className?: string;
+  style?: React.CSSProperties;
+  headerClass?: string;
+  header?: string;
+  onSubmit?: React.FormEventHandler<HTMLFormElement>;
+  contentClass?: string;
+  children?: ReactChild;
+  footerClass?: string;
+  footer?: ReactChild;
+}) => {
   const content = (
     <div className={`modal ${props.className}`} style={props.style}>
       <header className={`modal__header ${props.headerClass}`}>
@@ -26,7 +37,10 @@ const ModalOverlay = (props) => {
   return portal && createPortal(content, portal);
 };
 
-const Modal = (props) => {
+const Modal = (props: {
+  show?: boolean;
+  onCancel: React.MouseEventHandler<HTMLDivElement>;
+}) => {
   return (
     <>
       {props.show && <Backdrop onClick={props.onCancel} />}
