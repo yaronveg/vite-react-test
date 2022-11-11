@@ -1,7 +1,12 @@
 import { useEffect, useRef } from "react";
 import "./Map.css";
 
-const Map = (props) => {
+const Map = (props: {
+  center: number;
+  zoom: number;
+  className: string;
+  style: React.CSSProperties;
+}) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const { center, zoom } = props;
 
