@@ -9,7 +9,7 @@ const Button = (props: {
   danger?: boolean;
   disabled?: boolean;
   size?: "small" | "big";
-  to: To;
+  to?: To;
   children?: ReactChild;
   type?: "button" | "submit" | "reset" | undefined;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
