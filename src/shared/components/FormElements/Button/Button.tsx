@@ -8,7 +8,7 @@ const Button = (props: {
   inverse?: boolean;
   danger?: boolean;
   disabled?: boolean;
-  size: "small" | "big";
+  size?: "small" | "big";
   to: To;
   children?: ReactChild;
   type?: "button" | "submit" | "reset" | undefined;
