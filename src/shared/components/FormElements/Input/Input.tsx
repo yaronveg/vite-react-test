@@ -12,7 +12,7 @@ const inputReducer = (
     val: string;
     validators: { type: string; val?: string | number }[];
   }
-) => {
+): { value: string; isValid: boolean; isTouched?: boolean } => {
   switch (action.type) {
     case "CHANGE":
       return {
@@ -30,7 +30,17 @@ const inputReducer = (
   }
 };
 
-const Input = (props) => {
+const Input = (props: {
+  initialValue?: string;
+  initialIsValid?: boolean;
+  element?: "input";
+  id: string;
+  type: React.HTMLInputTypeAttribute;
+  placeholder?: string;
+  rows?: number;
+  label?: string;
+  errorText?: string;
+}) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue ?? "",
     isValid: props.initialIsValid ?? false,
