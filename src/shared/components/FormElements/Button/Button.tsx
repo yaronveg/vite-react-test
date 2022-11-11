@@ -1,9 +1,19 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { ReactChild } from "react";
+import { Link, To } from "react-router-dom";
 
 import "./Button.css";
 
-const Button = (props) => {
+const Button = (props: {
+  href?: string;
+  inverse?: boolean;
+  danger?: boolean;
+  disabled?: boolean;
+  size: "small" | "big";
+  to: To;
+  children?: ReactChild;
+  type?: "button" | "submit" | "reset" | undefined;
+  onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
+}) => {
   if (props.href) {
     return (
       <a
@@ -20,7 +30,6 @@ const Button = (props) => {
     return (
       <Link
         to={props.to}
-        exact={props.exact}
         className={`button button--${props.size || "default"} ${
           props.inverse && "button--inverse"
         } ${props.danger && "button--danger"}`}
