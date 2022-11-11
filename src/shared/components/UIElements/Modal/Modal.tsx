@@ -1,4 +1,4 @@
-import { ReactChild } from "react";
+import { ReactNode } from "react";
 import { createPortal } from "react-dom";
 import { CSSTransition } from "react-transition-group";
 import Backdrop from "../Backdrop/Backdrop";
@@ -11,9 +11,9 @@ const ModalOverlay = (props: {
   header?: string;
   onSubmit?: React.FormEventHandler<HTMLFormElement>;
   contentClass?: string;
-  children?: ReactChild;
+  children?: ReactNode;
   footerClass?: string;
-  footer?: ReactChild;
+  footer?: ReactNode;
 }) => {
   const content = (
     <div className={`modal ${props.className}`} style={props.style}>

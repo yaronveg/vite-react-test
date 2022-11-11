@@ -1,11 +1,11 @@
-import { CSSProperties, ReactChild } from "react";
+import { CSSProperties, ReactNode } from "react";
 
 import "./Card.css";
 
 const Card = (props: {
   className?: string;
   style?: CSSProperties;
-  children?: ReactChild;
+  children?: ReactNode;
 }) => {
   return (
     <div className={`card ${props.className}`} style={props.style}>

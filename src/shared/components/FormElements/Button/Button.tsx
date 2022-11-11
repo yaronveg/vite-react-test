@@ -1,4 +1,4 @@
-import { ReactChild } from "react";
+import { ReactNode } from "react";
 import { Link, To } from "react-router-dom";
 
 import "./Button.css";
@@ -10,7 +10,7 @@ const Button = (props: {
   disabled?: boolean;
   size?: "small" | "big";
   to?: To;
-  children?: ReactChild;
+  children?: ReactNode;
   type?: "button" | "submit" | "reset" | undefined;
   onClick?: React.MouseEventHandler<HTMLButtonElement> | undefined;
 }) => {
