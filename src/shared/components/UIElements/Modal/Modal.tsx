@@ -39,10 +39,12 @@ const ModalOverlay = (props: {
 
 const Modal = (props: {
   show?: boolean;
-  onCancel: React.MouseEventHandler<HTMLDivElement>;
+  onCancel?: React.MouseEventHandler<HTMLDivElement>;
   header?: string;
   footer?: ReactNode;
   children?: ReactNode;
+  contentClass?: string;
+  footerClass?: string;
 }) => {
   return (
     <>

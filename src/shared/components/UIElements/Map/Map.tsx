@@ -1,11 +1,12 @@
 import { useEffect, useRef } from "react";
+import { Coordinates } from "../../../../user/interfaces";
 import "./Map.css";
 
 const Map = (props: {
-  center: number;
+  center: Coordinates;
   zoom: number;
-  className: string;
-  style: React.CSSProperties;
+  className?: string;
+  style?: React.CSSProperties;
 }) => {
   const mapRef = useRef<HTMLDivElement>(null);
   const { center, zoom } = props;
