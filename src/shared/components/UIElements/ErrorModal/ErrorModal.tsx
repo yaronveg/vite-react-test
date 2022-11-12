@@ -1,7 +1,10 @@
 import Modal from "../Modal/Modal";
 import Button from "../../FormElements/Button/Button";
 
-const ErrorModal = (props) => {
+const ErrorModal = (props: {
+  onClear: React.MouseEventHandler<HTMLDivElement | HTMLButtonElement>;
+  error?: boolean;
+}) => {
   return (
     <Modal
       onCancel={props.onClear}
