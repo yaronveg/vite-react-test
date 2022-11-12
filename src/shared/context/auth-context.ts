@@ -2,7 +2,7 @@ import { createContext } from "react";
 
 export type AuthContextInterface = AuthContextLoggedIn | AuthContextLoggedOut;
 interface AuthContextBase {
-  login: (uid: string, token: string) => void;
+  login: (uid: string, token: string, expirationDate: Date) => void;
   logout: () => void;
 }
 interface AuthContextLoggedIn extends AuthContextBase {
