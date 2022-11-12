@@ -1,5 +1,5 @@
 import { useReducer, useEffect } from "react";
-import { validation } from "../../../utils/validation";
+import { validation, ValidatorConfig } from "../../../utils/validation";
 import "./Input.css";
 
 const inputReducer = (
@@ -10,7 +10,7 @@ const inputReducer = (
   action: {
     type: string;
     val: string;
-    validators: { type: string; val?: string | number }[];
+    validators: ValidatorConfig[];
   }
 ): { value: string; isValid: boolean; isTouched?: boolean } => {
   switch (action.type) {
@@ -33,7 +33,7 @@ const inputReducer = (
 const Input = (props: {
   initialValue?: string;
   initialIsValid?: boolean;
-  element?: "input";
+  element?: "input" | "textarea";
   id: string;
   type: React.HTMLInputTypeAttribute;
   placeholder?: string;
