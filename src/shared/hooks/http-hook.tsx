@@ -1,10 +1,11 @@
 import { useState, useCallback, useRef, useEffect } from "react";
+import { getErrorMessage } from "../utils/error";
 
 const abortControllres: AbortController[] = [];
 
 export const useHttpClient = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [serverError, setServerError] = useState();
+  const [serverError, setServerError] = useState<string | unknown>();
 
   const activeHttpRequest = useRef(abortControllres);
 
@@ -38,7 +39,7 @@ export const useHttpClient = () => {
         setIsLoading(false);
         return resData;
       } catch (error) {
-        setServerError(typeof error === "string" ? error : error.message);
+        setServerError(getErrorMessage(error));
         setIsLoading(false);
         throw error;
       }
