@@ -27,10 +27,24 @@ export const VALIDATOR_MAX = (val: number) => ({
 export const VALIDATOR_EMAIL = () => ({ type: VALIDATOR_TYPE_EMAIL });
 export const VALIDATOR_FILE = () => ({ type: VALIDATOR_TYPE_FILE });
 
-export type ValidatorConfig = {
-  type: string;
-  val?: number;
-};
+interface ValidatorConfigBase<A, B> {
+  type: A;
+  value: B;
+}
+type ValidatorConfigRequired = ValidatorConfigBase<"REQUIRE", undefined>;
+type ValidatorConfigMinlength = ValidatorConfigBase<"MINLENGTH", number>;
+type ValidatorConfigMaxlength = ValidatorConfigBase<"MAXLENGTH", number>;
+type ValidatorConfigMin = ValidatorConfigBase<"MIN", number>;
+type ValidatorConfigMax = ValidatorConfigBase<"MAX", number>;
+type ValidatorConfigEmail = ValidatorConfigBase<"EMAIL", number>;
+
+export type ValidatorConfig =
+  | ValidatorConfigRequired
+  | ValidatorConfigMinlength
+  | ValidatorConfigMaxlength
+  | ValidatorConfigMin
+  | ValidatorConfigMax
+  | ValidatorConfigEmail;
 
 export const validation = (
   value: string | number,
@@ -40,22 +54,22 @@ export const validation = (
   for (const validator of validators) {
     switch (validator.type) {
       case VALIDATOR_TYPE_REQUIRE:
-        isValid = isValid && value.trim().length > 0;
+        isValid = isValid && (!!value || value === 0);
         break;
       case VALIDATOR_TYPE_MINLENGTH:
-        isValid = isValid && value.trim().length >= validator.val;
+        isValid = isValid && (value as string).trim().length >= validator.value;
         break;
       case VALIDATOR_TYPE_MAXLENGTH:
-        isValid = isValid && value.trim().length <= validator.val;
+        isValid = isValid && (value as string).trim().length <= validator.value;
         break;
       case VALIDATOR_TYPE_MIN:
-        isValid = isValid && +value >= validator.val;
+        isValid = isValid && +value >= validator.value;
         break;
       case VALIDATOR_TYPE_MAX:
-        isValid = isValid && +value <= validator.val;
+        isValid = isValid && +value <= validator.value;
         break;
       case VALIDATOR_TYPE_EMAIL:
-        isValid = isValid && /^\S+@\S+\.\S+$/.test(value);
+        isValid = isValid && /^\S+@\S+\.\S+$/.test(value as string);
         break;
       default:
         break;
