@@ -1,23 +1,20 @@
 import "./ImageUpload.css";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, ChangeEvent } from "react";
 import { Button } from "../../../components";
 
 const ImageUpload = (props: {
   id: string;
   center: boolean;
-  onInput: (id: string, pickedFile: Blob, fileIsValid: boolean) => void;
+  onInput: (id: string, fileIsValid: boolean, pickedFile?: Blob) => void;
   errorText: string;
 }) => {
-  const filePickerRef = useRef();
-  const [file, setFile] = useState();
-  const [previewUrl, setPreviewUrl] = useState("");
+  const filePickerRef = useRef<HTMLInputElement>(null);
+  const [file, setFile] = useState<File>();
+  const [previewUrl, setPreviewUrl] = useState<string | ArrayBuffer | null>("");
   const [isValid, setIsValid] = useState(false);
 
   useEffect(() => {
     if (!file) return;
-    // if (!file) {
-    //   return;
-    // }
     const fileReader = new FileReader();
     fileReader.onload = () => {
       setPreviewUrl(fileReader.result);
@@ -26,9 +23,11 @@ const ImageUpload = (props: {
   }, [file]);
 
   const pickImageHandler = () => {
+    if (!filePickerRef.current) throw Error("filePickerRef is not assigned");
     filePickerRef.current.click();
   };
-  const pickedHandler = (event) => {
+
+  const pickedHandler = (event: ChangeEvent<HTMLInputElement>) => {
     let pickedFile;
     let fileIsValid = isValid;
     if (event.target.files && event.target.files.length === 1) {
@@ -40,7 +39,7 @@ const ImageUpload = (props: {
       setIsValid(false);
       fileIsValid = false;
     }
-    props.onInput(props.id, pickedFile, fileIsValid);
+    props.onInput(props.id, fileIsValid, pickedFile);
   };
 
   return (
@@ -55,7 +54,7 @@ const ImageUpload = (props: {
       />
       <div className={`image-upload ${props.center && "center"}`}>
         <div className="image-upload__preview" onClick={pickImageHandler}>
-          {previewUrl ? (
+          {typeof previewUrl === "string" ? (
             <img src={previewUrl} alt="Preview" />
           ) : (
             <p>Please pick an image</p>
