@@ -6,20 +6,6 @@ export const VALIDATOR_TYPE_MAX = "MAX";
 export const VALIDATOR_TYPE_EMAIL = "EMAIL";
 export const VALIDATOR_TYPE_FILE = "FILE";
 
-type ValidatorKey =
-  | typeof VALIDATOR_TYPE_REQUIRE
-  | typeof VALIDATOR_TYPE_MINLENGTH
-  | typeof VALIDATOR_TYPE_MAXLENGTH
-  | typeof VALIDATOR_TYPE_MIN
-  | typeof VALIDATOR_TYPE_MAX
-  | typeof VALIDATOR_TYPE_EMAIL
-  | typeof VALIDATOR_TYPE_FILE;
-
-export interface ValidatorObject {
-  type: ValidatorKey;
-  limiter?: number;
-}
-
 interface ValidatorConfigBase<A, B> {
   type: A;
   limiter: B;
