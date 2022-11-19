@@ -84,7 +84,7 @@ const UpdatePlace = () => {
 
   return (
     <>
-      <ErrorModal error={serverError} onClear={clearError} />
+      <ErrorModal error={!!serverError} onClear={clearError} />
       {!isLoading && currentPlace && (
         <form className="place-form" onSubmit={submitUpdatePlaceHandler}>
           <Input
