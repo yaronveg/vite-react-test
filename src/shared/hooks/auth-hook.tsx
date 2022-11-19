@@ -33,13 +33,16 @@ export const useAuth = () => {
     setTokenExpirationDate(null);
     localStorage.removeItem("userData");
   }, []);
-  const authProviderValue: AuthContextInterface = {
-    isLoggedIn: !!token,
-    token,
-    userId,
-    login,
-    logout,
-  };
+  const authProviderValue: AuthContextInterface =
+    !!token && !!userId
+      ? {
+          isLoggedIn: true,
+          token,
+          userId,
+          login,
+          logout,
+        }
+      : { isLoggedIn: false, token: null, userId: null, login, logout };
 
   useEffect(() => {
     if (token && tokenExpirationDate) {
