@@ -30,7 +30,7 @@ const UserPlaces = () => {
   };
   return (
     <>
-      <ErrorModal error={serverError} onClear={clearError} />
+      <ErrorModal error={!!serverError} onClear={clearError} />
       {isLoading && (
         <div className="center">
           <LoadingSpinner asOverlay />

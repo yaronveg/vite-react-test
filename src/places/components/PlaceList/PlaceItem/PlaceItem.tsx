@@ -48,7 +48,7 @@ const PlaceItem = (props: {
 
   return (
     <>
-      <ErrorModal error={serverError} onClear={clearError} />
+      <ErrorModal error={!!serverError} onClear={clearError} />
       <Modal
         show={showMap}
         onCancel={closeMapHandler}
