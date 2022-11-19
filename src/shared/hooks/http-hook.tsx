@@ -5,7 +5,7 @@ const abortControllres: AbortController[] = [];
 
 export const useHttpClient = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [serverError, setServerError] = useState<string | unknown>();
+  const [serverError, setServerError] = useState<string>();
 
   const activeHttpRequest = useRef(abortControllres);
 
