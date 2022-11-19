@@ -1,6 +1,8 @@
-import { useReducer, useEffect } from "react";
-import { validation, ValidatorConfig } from "../../../utils/validation";
+import { useReducer, useEffect, ChangeEvent } from "react";
+import { validation } from "../../../utils/validation";
+import { ValidatorConfig } from "../../../interfaces/validation-types";
 import "./Input.css";
+import { InputHandler } from "../../../interfaces/form-types";
 
 const inputReducer = (
   state: {
@@ -40,6 +42,8 @@ const Input = (props: {
   rows?: number;
   label?: string;
   errorText?: string;
+  validators?: ValidatorConfig[];
+  onInput: InputHandler;
 }) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue ?? "",
@@ -47,11 +51,13 @@ const Input = (props: {
     isTouched: false,
   });
 
-  const changeHandler = (event) => {
+  const changeHandler = (
+    event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => {
     dispatch({
       type: "CHANGE",
       val: event.target.value,
-      validators: props.validators,
+      validators: props.validators ?? [],
     });
   };
 
