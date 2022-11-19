@@ -37,7 +37,7 @@ const Input = (props: {
   initialIsValid?: boolean;
   element?: "input" | "textarea";
   id: string;
-  type: React.HTMLInputTypeAttribute;
+  type?: React.HTMLInputTypeAttribute;
   placeholder?: string;
   rows?: number;
   label?: string;
