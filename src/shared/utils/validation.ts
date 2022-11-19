@@ -11,30 +11,33 @@ import {
 } from "./../interfaces/validation-types";
 
 // TODO: create universal type for validators
-export const VALIDATOR_REQUIRE = (): ValidatorObject => ({
+export const VALIDATOR_REQUIRE = (limiter = undefined): ValidatorConfig => ({
   type: VALIDATOR_TYPE_REQUIRE,
+  limiter,
 });
-export const VALIDATOR_MINLENGTH = (limiter: number): ValidatorObject => ({
+export const VALIDATOR_MINLENGTH = (limiter: number): ValidatorConfig => ({
   type: VALIDATOR_TYPE_MINLENGTH,
   limiter,
 });
-export const VALIDATOR_MAXLENGTH = (limiter: number): ValidatorObject => ({
+export const VALIDATOR_MAXLENGTH = (limiter: number): ValidatorConfig => ({
   type: VALIDATOR_TYPE_MAXLENGTH,
   limiter,
 });
-export const VALIDATOR_MIN = (limiter: number): ValidatorObject => ({
+export const VALIDATOR_MIN = (limiter: number): ValidatorConfig => ({
   type: VALIDATOR_TYPE_MIN,
   limiter,
 });
-export const VALIDATOR_MAX = (limiter: number): ValidatorObject => ({
+export const VALIDATOR_MAX = (limiter: number): ValidatorConfig => ({
   type: VALIDATOR_TYPE_MAX,
   limiter,
 });
-export const VALIDATOR_EMAIL = (): ValidatorObject => ({
+export const VALIDATOR_EMAIL = (limiter = undefined): ValidatorConfig => ({
   type: VALIDATOR_TYPE_EMAIL,
+  limiter,
 });
-export const VALIDATOR_FILE = (): ValidatorObject => ({
+export const VALIDATOR_FILE = (limiter = undefined): ValidatorConfig => ({
   type: VALIDATOR_TYPE_FILE,
+  limiter,
 });
 
 export const validation = (

@@ -30,7 +30,8 @@ type ValidatorConfigMinlength = ValidatorConfigBase<"MINLENGTH", number>;
 type ValidatorConfigMaxlength = ValidatorConfigBase<"MAXLENGTH", number>;
 type ValidatorConfigMin = ValidatorConfigBase<"MIN", number>;
 type ValidatorConfigMax = ValidatorConfigBase<"MAX", number>;
-type ValidatorConfigEmail = ValidatorConfigBase<"EMAIL", number>;
+type ValidatorConfigEmail = ValidatorConfigBase<"EMAIL", undefined>;
+type ValidatorConfigFile = ValidatorConfigBase<"FILE", undefined>;
 
 export type ValidatorConfig =
   | ValidatorConfigRequired
@@ -38,4 +39,5 @@ export type ValidatorConfig =
   | ValidatorConfigMaxlength
   | ValidatorConfigMin
   | ValidatorConfigMax
+  | ValidatorConfigFile
   | ValidatorConfigEmail;
