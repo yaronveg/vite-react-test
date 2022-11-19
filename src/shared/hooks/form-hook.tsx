@@ -1,4 +1,5 @@
 import { useCallback, useReducer } from "react";
+import { InputHandler } from "../interfaces/form-types";
 
 const formReducer = (state, action) => {
   switch (action.type) {
@@ -35,7 +36,7 @@ export const useForm = (initialInputs, initialFormValidity: boolean) => {
     isValid: initialFormValidity,
   });
 
-  const inputHandler = useCallback(
+  const inputHandler: InputHandler = useCallback(
     (id: string, value: String | Blob, isValid: boolean) => {
       dispatch({ type: "INPUT_CHANGE", value, isValid, inputId: id });
     },
