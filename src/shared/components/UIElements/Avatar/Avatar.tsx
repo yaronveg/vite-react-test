@@ -6,15 +6,15 @@ const Avatar = (props: {
   style?: React.CSSProperties;
   image: string;
   alt: string;
-  width: string | number;
-  height: string | number;
+  width?: string | number;
+  height?: string | number;
 }) => {
   return (
     <div className={`avatar ${props.className}`} style={props.style}>
       <img
         src={props.image}
         alt={props.alt}
-        style={{ width: props.width, height: props.width }}
+        style={{ width: props.width ?? 50, height: props.width ?? 50 }}
       />
     </div>
   );
