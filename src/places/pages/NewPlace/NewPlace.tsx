@@ -18,7 +18,7 @@ import { useNavigate } from "react-router";
 
 const NewPlace = () => {
   const { serverError, isLoading, clearError, sendRequest } = useHttpClient();
-  const [formState, inputHandler] = useForm(
+  const {formState, inputHandler} = useForm(
     {
       title: { value: "", isValid: false },
       description: { value: "", isValid: false },
@@ -35,10 +35,18 @@ const NewPlace = () => {
     if (auth.isLoggedIn) {
       try {
         const formData = new FormData();
-        formData.append("title", formState.inputs.title.value);
-        formData.append("description", formState.inputs.description.value);
-        formData.append("address", formState.inputs.address.value);
-        formData.append("image", formState.inputs.image.value);
+        if (
+          "inputs" in formState &&
+          formState.inputs.title.value &&
+          formState.inputs.description.value &&
+          formState.inputs.address.value &&
+          formState.inputs.image.value
+        ) {
+          formData.append("title", formState.inputs.title.value);
+          formData.append("description", formState.inputs.description.value);
+          formData.append("address", formState.inputs.address.value);
+          formData.append("image", formState.inputs.image.value);
+        }
         await sendRequest(
           import.meta.env.YV_DEV_SERVER_BASE_URL + "places/",
           "POST",

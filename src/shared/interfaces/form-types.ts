@@ -1,11 +1,11 @@
 export type InputHandler = (
   id: string,
-  value: String | Blob,
+  value: string | Blob,
   isValid: boolean
 ) => void;
 
 interface HookInput {
-  value: String | Blob | null;
+  value: string | Blob | null;
   isValid: boolean;
 }
 
@@ -13,7 +13,7 @@ export type HookInputs = Record<string, HookInput>;
 
 interface FormActionInputChange {
   type: "INPUT_CHANGE";
-  value: String | Blob;
+  value: string | Blob;
   isValid: boolean;
   inputId: string;
 }

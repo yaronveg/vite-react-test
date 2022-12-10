@@ -20,7 +20,7 @@ const UpdatePlace = () => {
   const { placeId } = useParams();
   const { serverError, isLoading, clearError, sendRequest } = useHttpClient();
   const [currentPlace, setCurrentPlace] = useState<null | Place>(null);
-  const [formState, inputHandler, setFormData] = useForm(
+  const {formState, inputHandler, setFormData} = useForm(
     {
       title: "",
       description: "",

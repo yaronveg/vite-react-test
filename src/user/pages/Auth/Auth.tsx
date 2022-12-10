@@ -17,7 +17,7 @@ import {
 import "./Auth.css";
 
 const Auth = () => {
-  const [formState, inputHandler, setFormData] = useForm(
+  const { formState, inputHandler, setFormData } = useForm(
     {
       email: { value: "", isValid: false },
       password: { value: "", isValid: false },
@@ -51,10 +51,18 @@ const Auth = () => {
     } else {
       try {
         const formData = new FormData(); // FormData is a broswer api
-        formData.append("name", formState.inputs.name.value);
-        formData.append("email", formState.inputs.email.value);
-        formData.append("password", formState.inputs.password.value);
-        formData.append("image", formState.inputs.image.value); // this "image" key matches the key in backend. multer's middleware is looking for "image" ( multer.single("image") )
+        if (
+          "inputs" in formData &&
+          formState.inputs.name.value &&
+          formState.inputs.email.value &&
+          formState.inputs.password.value &&
+          formState.inputs.image.value
+        ) {
+          formData.append("name", formState.inputs.name.value);
+          formData.append("email", formState.inputs.email.value);
+          formData.append("password", formState.inputs.password.value);
+          formData.append("image", formState.inputs.image.value); // this "image" key matches the key in backend. multer's middleware is looking for "image" ( multer.single("image") )
+        }
         const resData = await sendRequest(
           import.meta.env.YV_DEV_SERVER_BASE_URL + "users/signup",
           "POST",

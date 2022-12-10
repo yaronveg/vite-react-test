@@ -44,7 +44,7 @@ export const useForm = (
   });
 
   const inputHandler: InputHandler = useCallback(
-    (id: string, value: String | Blob, isValid: boolean) => {
+    (id: string, value: string | Blob, isValid: boolean) => {
       dispatch({ type: "INPUT_CHANGE", value, isValid, inputId: id });
     },
     []
@@ -61,5 +61,5 @@ export const useForm = (
     []
   );
 
-  return [formState, inputHandler, setFormData];
+  return {formState, inputHandler, setFormData};
 };
