@@ -25,3 +25,4 @@ dist-ssr
 
 # custom user defined ignores
 .env
+.env.production
