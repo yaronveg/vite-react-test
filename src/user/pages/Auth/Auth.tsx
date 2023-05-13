@@ -92,7 +92,7 @@ const Auth = () => {
   };
   return (
     <>
-      <ErrorModal error={serverError} onClear={clearError} />
+      <ErrorModal error={!!serverError} onClear={clearError} />
       <Card className="authentication">
         {isLoading && <LoadingSpinner asOverlay />}
         <h2>Login Required</h2>
