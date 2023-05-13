@@ -1,11 +1,12 @@
 import "./ImageUpload.css";
 import { useEffect, useRef, useState, ChangeEvent } from "react";
 import { Button } from "../../../components";
+import { InputHandler } from "../../../interfaces/form-types";
 
 const ImageUpload = (props: {
   id: string;
   center: boolean;
-  onInput: (id: string, fileIsValid: boolean, pickedFile?: Blob) => void;
+  onInput: InputHandler;
   errorText: string;
 }) => {
   const filePickerRef = useRef<HTMLInputElement>(null);
@@ -39,7 +40,7 @@ const ImageUpload = (props: {
       setIsValid(false);
       fileIsValid = false;
     }
-    props.onInput(props.id, fileIsValid, pickedFile);
+    props.onInput(props.id, pickedFile, fileIsValid);
   };
 
   return (

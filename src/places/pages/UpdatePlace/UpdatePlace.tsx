@@ -22,8 +22,8 @@ const UpdatePlace = () => {
   const [currentPlace, setCurrentPlace] = useState<null | Place>(null);
   const {formState, inputHandler, setFormData} = useForm(
     {
-      title: "",
-      description: "",
+      title: {value:"", isValid: false},
+      description: {value:"", isValid: false},
     },
     false
   );
